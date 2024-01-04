@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Table(name = "user")
 public class User {
 
     @Id
@@ -12,41 +13,33 @@ public class User {
     private int id;
 
     private String username;
-    private String password;
-    private String originalIp;
-    private String maskedIp;
-    private boolean connected;
 
-    @JoinColumn
+    private String password;
+
+    private String originalIp;
+
+    private String maskedIp;
+
+    private Boolean connected;
+
     @ManyToMany
-    private List<ServiceProvider> serviceProviderList;
-    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
-    private List<Connection> connectionList;
+    @JoinColumn
+    private List<ServiceProvider> serviceProviderList = new ArrayList<>();
+
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private Country originalCountry;
 
-    // No-Args Constructor
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+    private List<Connection> connectionList;
 
-    public User() {
-        serviceProviderList = new ArrayList<>();
-        connectionList = new ArrayList<>();
-    }
-
-    // All-Args Constructor
-
-    public User(int id, String username, String password, String originalIp, String maskedIp, boolean connected, List<ServiceProvider> serviceProviderList, List<Connection> connectionList, Country originalCountry) {
-        this.id = id;
+    public User(String username, String password, Country originalCountry) {
         this.username = username;
         this.password = password;
-        this.originalIp = originalIp;
-        this.maskedIp = maskedIp;
-        this.connected = connected;
-        this.serviceProviderList = serviceProviderList;
-        this.connectionList = connectionList;
         this.originalCountry = originalCountry;
     }
 
-    // Getters and Setters
+    public User() {
+    }
 
     public int getId() {
         return id;
@@ -88,12 +81,11 @@ public class User {
         this.maskedIp = maskedIp;
     }
 
-    public boolean isConnected() {
+    public Boolean getConnected() {
         return connected;
     }
-    public boolean getConnected() { return connected;}
 
-    public void setConnected(boolean connected) {
+    public void setConnected(Boolean connected) {
         this.connected = connected;
     }
 
@@ -105,19 +97,19 @@ public class User {
         this.serviceProviderList = serviceProviderList;
     }
 
-    public List<Connection> getConnectionList() {
-        return connectionList;
-    }
-
-    public void setConnectionList(List<Connection> connectionList) {
-        this.connectionList = connectionList;
-    }
-
     public Country getOriginalCountry() {
         return originalCountry;
     }
 
     public void setOriginalCountry(Country originalCountry) {
         this.originalCountry = originalCountry;
+    }
+
+    public List<Connection> getConnectionList() {
+        return connectionList;
+    }
+
+    public void setConnectionList(List<Connection> connectionList) {
+        this.connectionList = connectionList;
     }
 }
