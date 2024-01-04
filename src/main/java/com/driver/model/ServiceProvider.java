@@ -14,25 +14,35 @@ public class ServiceProvider {
 
     private String name;
 
-    @ManyToOne
     @JoinColumn
+    @ManyToOne
     private Admin admin;
-
     @ManyToMany(mappedBy = "serviceProviderList",cascade = CascadeType.ALL)
-    private List<User> users = new ArrayList<>();
-
-    @OneToMany(mappedBy = "serviceProvider", cascade = CascadeType.ALL)
-    private List<Country> countryList = new ArrayList<>();
-
+    private List<User> users;
     @OneToMany(mappedBy = "serviceProvider",cascade = CascadeType.ALL)
-    private List<Connection> connectionList = new ArrayList<>();
+    private List<Connection> connectionList;
+    @OneToMany(mappedBy = "serviceProvider", cascade = CascadeType.ALL)
+    private List<Country> countryList;
 
-    public ServiceProvider(String name) {
-        this.name = name;
-    }
+    // No-Args Constructor
 
     public ServiceProvider() {
+        connectionList = new ArrayList<>();
+        countryList = new ArrayList<>();
     }
+
+    // All-Args Constructor
+
+    public ServiceProvider(int id, String name, Admin admin, List<User> users, List<Connection> connectionList, List<Country> countryList) {
+        this.id = id;
+        this.name = name;
+        this.admin = admin;
+        this.users = users;
+        this.connectionList = connectionList;
+        this.countryList = countryList;
+    }
+
+    // Getters and Setters
 
     public int getId() {
         return id;
@@ -66,19 +76,19 @@ public class ServiceProvider {
         this.users = users;
     }
 
-    public List<Country> getCountryList() {
-        return countryList;
-    }
-
-    public void setCountryList(List<Country> countryList) {
-        this.countryList = countryList;
-    }
-
     public List<Connection> getConnectionList() {
         return connectionList;
     }
 
     public void setConnectionList(List<Connection> connectionList) {
         this.connectionList = connectionList;
+    }
+
+    public List<Country> getCountryList() {
+        return countryList;
+    }
+
+    public void setCountryList(List<Country> countryList) {
+        this.countryList = countryList;
     }
 }
