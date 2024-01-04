@@ -13,27 +13,19 @@ public class Admin {
     private int id;
 
     private String username;
+
     private String password;
 
     @OneToMany(mappedBy = "admin", cascade = CascadeType.ALL)
-    private List<ServiceProvider> serviceProviders;
+    private List<ServiceProvider> serviceProviders = new ArrayList<>();
 
-    // No-Args Constructor
-
-    public Admin() {
-        serviceProviders = new ArrayList<>();
-    }
-
-    // All-Args Constructor
-
-    public Admin(int id, String username, String password, List<ServiceProvider> serviceProviders) {
-        this.id = id;
+    public Admin(String username, String password) {
         this.username = username;
         this.password = password;
-        this.serviceProviders = serviceProviders;
     }
 
-    // Getters and Setters
+    public Admin() {
+    }
 
     public int getId() {
         return id;
