@@ -23,20 +23,20 @@ public class ConnectionServiceImpl implements ConnectionService {
     public User connect(int userId, String countryName) throws Exception{
         User user = userRepository2.findById(userId).orElse(null);
 
-        assert user != null;
-        if(user.isConnected()) throw new Exception("Already connected");
-
-        Country country = user.getOriginalCountry();
-        countryName = countryName.toUpperCase();
-
-        if(countryName.equals(country.getCountryName().toString()))
-            return user;
-
-        List<ServiceProvider> serviceProviders = user.getServiceProviderList();
-        if(serviceProviders.isEmpty())
-            throw new Exception("serviceProviders");
-
-        ServiceProvider serviceProvider = new ServiceProvider();
+//        assert user != null;
+//        if(user.isConnected()) throw new Exception("Already connected");
+//
+//        Country country = user.getOriginalCountry();
+//        countryName = countryName.toUpperCase();
+//
+//        if(countryName.equals(country.getCountryName().toString()))
+//            return user;
+//
+//        List<ServiceProvider> serviceProviders = user.getServiceProviderList();
+//        if(serviceProviders.isEmpty())
+//            throw new Exception("serviceProviders");
+//
+//        ServiceProvider serviceProvider = new ServiceProvider();
 
 //        for(ServiceProvider provider : serviceProviders){
 //            for(Country country1 : )
@@ -48,11 +48,11 @@ public class ConnectionServiceImpl implements ConnectionService {
     public User disconnect(int userId) throws Exception {
         User user = userRepository2.findById(userId).orElse(null);
 
-        assert user != null;
-        if(!user.isConnected()) throw new Exception("Already disconnected");
-
-        user.setConnected(false);
-        user.setMaskedIp(null);
+//        assert user != null;
+//        if(!user.isConnected()) throw new Exception("Already disconnected");
+//
+//        user.setConnected(false);
+//        user.setMaskedIp(null);
 
         return  user;
     }
@@ -61,8 +61,8 @@ public class ConnectionServiceImpl implements ConnectionService {
         User sender = userRepository2.findById(senderId).orElse(null);
         User receiver = userRepository2.findById(receiverId).orElse(null);
 
-        Country senderCountry = sender.getOriginalCountry();
-        Country receiverCountry = receiver.getOriginalCountry();
+//        Country senderCountry = sender.getOriginalCountry();
+//        Country receiverCountry = receiver.getOriginalCountry();
 
         return sender;
     }
