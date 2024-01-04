@@ -32,46 +32,47 @@ public class UserServiceImpl implements UserService {
         switch (countryName){
             case ("IND"):
                 country.setCountryName(CountryName.IND);
-                country.setCode("001");
+                country.setCode(CountryName.IND.toCode());
                 break;
             case ("USA"):
                 country.setCountryName(CountryName.USA);
-                country.setCode("002");
+                country.setCode(CountryName.USA.toCode());
                 break;
             case ("AUS"):
                 country.setCountryName(CountryName.AUS);
-                country.setCode("003");
+                country.setCode(CountryName.AUS.toCode());
                 break;
             case ("CHI"):
                 country.setCountryName(CountryName.CHI);
-                country.setCode("004");
+                country.setCode(CountryName.CHI.toCode());
                 break;
             case ("JPN"):
                 country.setCountryName(CountryName.JPN);
-                country.setCode("005");
+                country.setCode(CountryName.JPN.toCode());
                 break;
             default:
                 throw new Exception("Country not found");
         }
-        user.setOriginalIp(country.getCode()+"."+user.getId());
+
+        country.setUser(user);
         user.setOriginalCountry(country);
         user.setConnected(false);
-        user.setMaskedIp(null);
 
-        countryRepository3.save(country);
+        user.setOriginalIp(country.getCode()+"."+userRepository3.save(user).getId());
+
         userRepository3.save(user);
         return user;
     }
 
     @Override
     public User subscribe(Integer userId, Integer serviceProviderId) {
-        User user = userRepository3.findById(userId).orElse(null);
+        User user = userRepository3.findById(userId).get();
         ServiceProvider serviceProvider = serviceProviderRepository3.findById(serviceProviderId).orElse(null);
 
-        assert serviceProvider != null;
-        serviceProvider.getUsers().add(user);
-        assert user != null;
         user.getServiceProviderList().add(serviceProvider);
+        serviceProvider.getUsers().add(user);
+
+        serviceProviderRepository3.save(serviceProvider);
 
         return user;
     }

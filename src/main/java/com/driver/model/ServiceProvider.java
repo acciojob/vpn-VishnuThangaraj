@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Table(name = "serviceProvider")
 public class ServiceProvider {
 
     @Id
@@ -13,11 +14,14 @@ public class ServiceProvider {
 
     private String name;
 
+    @JoinColumn
     @ManyToOne
     private Admin admin;
-    @ManyToMany
+    @ManyToMany(mappedBy = "serviceProviderList",cascade = CascadeType.ALL)
     private List<User> users;
+    @OneToMany(mappedBy = "serviceProvider",cascade = CascadeType.ALL)
     private List<Connection> connectionList;
+    @OneToMany(mappedBy = "serviceProvider", cascade = CascadeType.ALL)
     private List<Country> countryList;
 
     // No-Args Constructor

@@ -17,11 +17,12 @@ public class User {
     private String maskedIp;
     private boolean connected;
 
+    @JoinColumn
     @ManyToMany
     private List<ServiceProvider> serviceProviderList;
-    @OneToMany
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
     private List<Connection> connectionList;
-    @OneToOne
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private Country originalCountry;
 
     // No-Args Constructor

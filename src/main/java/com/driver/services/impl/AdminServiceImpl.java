@@ -35,22 +35,20 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public Admin addServiceProvider(int adminId, String providerName) {
-        Admin admin = adminRepository1.findById(adminId).orElse(null);
-
+        Admin admin = adminRepository1.findById(adminId).get();
         ServiceProvider serviceProvider = new ServiceProvider();
+
         serviceProvider.setName(providerName);
         serviceProvider.setAdmin(admin);
-        serviceProviderRepository1.save(serviceProvider);
 
-        assert admin != null;
         admin.getServiceProviders().add(serviceProvider);
+        adminRepository1.save(admin);
 
         return admin;
     }
 
     @Override
     public ServiceProvider addCountry(int serviceProviderId, String countryName) throws Exception{
-        ServiceProvider serviceProvider = serviceProviderRepository1.findById(serviceProviderId).orElse(null);
 
         //ind, usa, aus, , chi, jpn (00X)
         countryName = countryName.toUpperCase();
@@ -59,31 +57,32 @@ public class AdminServiceImpl implements AdminService {
         switch (countryName){
             case ("IND"):
                 country.setCountryName(CountryName.IND);
-                country.setCode("001");
+                country.setCode(CountryName.IND.toCode());
                 break;
             case ("USA"):
                 country.setCountryName(CountryName.USA);
-                country.setCode("002");
+                country.setCode(CountryName.USA.toCode());
                 break;
             case ("AUS"):
                 country.setCountryName(CountryName.AUS);
-                country.setCode("003");
+                country.setCode(CountryName.AUS.toCode());
                 break;
             case ("CHI"):
                 country.setCountryName(CountryName.CHI);
-                country.setCode("004");
+                country.setCode(CountryName.CHI.toCode());
                 break;
             case ("JPN"):
                 country.setCountryName(CountryName.JPN);
-                country.setCode("005");
+                country.setCode(CountryName.JPN.toCode());
                 break;
             default:
                 throw new Exception("Country not found");
         }
+        ServiceProvider serviceProvider = serviceProviderRepository1.findById(serviceProviderId).orElse(null);
 
         country.setServiceProvider(serviceProvider);
-        countryRepository1.save(country);
         serviceProvider.getCountryList().add(country);
+        serviceProviderRepository1.save(serviceProvider);
 
         return serviceProvider;
     }

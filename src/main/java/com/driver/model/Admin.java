@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Table(name = "admin")
 public class Admin {
 
     @Id
@@ -14,7 +15,7 @@ public class Admin {
     private String username;
     private String password;
 
-    @OneToMany(mappedBy = "admin")
+    @OneToMany(mappedBy = "admin", cascade = CascadeType.ALL)
     private List<ServiceProvider> serviceProviders;
 
     // No-Args Constructor

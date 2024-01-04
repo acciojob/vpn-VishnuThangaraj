@@ -3,6 +3,7 @@ package com.driver.model;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "country")
 public class Country {
 
     @Id
@@ -12,8 +13,10 @@ public class Country {
     private CountryName countryName;
     private String code;
 
+    @JoinColumn
     @OneToOne
     private User user;
+    @JoinColumn
     @ManyToOne
     private ServiceProvider serviceProvider;
 
