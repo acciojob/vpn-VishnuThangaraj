@@ -23,15 +23,17 @@ public class ConnectionServiceImpl implements ConnectionService {
     public User connect(int userId, String countryName) throws Exception{
         User user = userRepository2.findById(userId).orElse(null);
 
+        assert user != null;
         if(user.isConnected()) throw new Exception("Already connected");
 
         Country country = user.getOriginalCountry();
+        countryName = countryName.toUpperCase();
 
-        if(countryName.toUpperCase().equals(country.getCountryName()))
+        if(countryName.equals(country.getCountryName().toString()))
             return user;
 
         List<ServiceProvider> serviceProviders = user.getServiceProviderList();
-        if(serviceProviders == null || serviceProviders.size() == 0)
+        if(serviceProviders.isEmpty())
             throw new Exception("serviceProviders");
 
         ServiceProvider serviceProvider = new ServiceProvider();
@@ -46,7 +48,8 @@ public class ConnectionServiceImpl implements ConnectionService {
     public User disconnect(int userId) throws Exception {
         User user = userRepository2.findById(userId).orElse(null);
 
-        if(user.isConnected()) throw new Exception("Already disconnected");
+        assert user != null;
+        if(!user.isConnected()) throw new Exception("Already disconnected");
 
         user.setConnected(false);
         user.setMaskedIp(null);
