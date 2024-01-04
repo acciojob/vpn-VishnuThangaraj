@@ -1,20 +1,20 @@
 package com.driver.model;
 // Note: Do not write @Enumerated annotation above CountryName in this model.
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Country {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     private CountryName countryName;
     private String code;
+
+    @OneToOne
     private User user;
+    @ManyToOne
     private ServiceProvider serviceProvider;
 
     // No-Args Constructor

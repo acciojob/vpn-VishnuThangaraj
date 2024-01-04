@@ -1,9 +1,6 @@
 package com.driver.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,12 +8,15 @@ import java.util.List;
 public class ServiceProvider {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     private String name;
+
+    @ManyToOne
     private Admin admin;
-    List<User> users;
+    @ManyToMany
+    private List<User> users;
     private List<Connection> connectionList;
     private List<Country> countryList;
 

@@ -1,9 +1,6 @@
 package com.driver.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,7 +8,7 @@ import java.util.List;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     private String username;
@@ -19,8 +16,12 @@ public class User {
     private String originalIp;
     private String maskedIp;
     private boolean connected;
+
+    @ManyToMany
     private List<ServiceProvider> serviceProviderList;
+    @OneToMany
     private List<Connection> connectionList;
+    @OneToOne
     private Country originalCountry;
 
     // No-Args Constructor

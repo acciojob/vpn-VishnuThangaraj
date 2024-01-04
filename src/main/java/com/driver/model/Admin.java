@@ -8,11 +8,13 @@ import java.util.List;
 public class Admin {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     private String username;
     private String password;
+
+    @OneToMany(mappedBy = "admin")
     private List<ServiceProvider> serviceProviders;
 
     // No-Args Constructor
