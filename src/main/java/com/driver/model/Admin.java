@@ -33,6 +33,11 @@ public class Admin {
         this.serviceProviders = serviceProviders;
     }
 
+    public Admin(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+
     // Getters and Setters
 
     public int getId() {
