@@ -13,7 +13,7 @@ public class Country {
     private int id;
 
     private CountryName countryName;
-    private String codes;
+    private String code;
     private User user;
     private ServiceProvider serviceProvider;
 
@@ -24,10 +24,10 @@ public class Country {
 
     // All-Args Constructor
 
-    public Country(int id, CountryName countryName, String codes, User user, ServiceProvider serviceProvider) {
+    public Country(int id, CountryName countryName, String code, User user, ServiceProvider serviceProvider) {
         this.id = id;
         this.countryName = countryName;
-        this.codes = codes;
+        this.code = code;
         this.user = user;
         this.serviceProvider = serviceProvider;
     }
@@ -50,12 +50,12 @@ public class Country {
         this.countryName = countryName;
     }
 
-    public String getCodes() {
-        return codes;
+    public String getCode() {
+        return code;
     }
 
-    public void setCodes(String codes) {
-        this.codes = codes;
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public User getUser() {

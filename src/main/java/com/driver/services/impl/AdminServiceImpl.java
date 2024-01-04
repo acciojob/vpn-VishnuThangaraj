@@ -58,23 +58,23 @@ public class AdminServiceImpl implements AdminService {
         switch (countryName){
             case ("IND"):
                 country.setCountryName(CountryName.IND);
-                country.setCodes("001");
+                country.setCode("001");
                 break;
             case ("USA"):
                 country.setCountryName(CountryName.USA);
-                country.setCodes("002");
+                country.setCode("002");
                 break;
             case ("AUS"):
                 country.setCountryName(CountryName.AUS);
-                country.setCodes("003");
+                country.setCode("003");
                 break;
             case ("CHI"):
                 country.setCountryName(CountryName.CHI);
-                country.setCodes("004");
+                country.setCode("004");
                 break;
             case ("JPN"):
                 country.setCountryName(CountryName.JPN);
-                country.setCodes("005");
+                country.setCode("005");
                 break;
             default:
                 throw new Exception("Country not found");

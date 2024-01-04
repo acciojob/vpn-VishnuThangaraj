@@ -25,7 +25,7 @@ public class ConnectionServiceImpl implements ConnectionService {
 
         if(user.isConnected()) throw new Exception("Already connected");
 
-        Country country = user.getCountry();
+        Country country = user.getOriginalCountry();
 
         if(countryName.toUpperCase().equals(country.getCountryName()))
             return user;
@@ -58,8 +58,8 @@ public class ConnectionServiceImpl implements ConnectionService {
         User sender = userRepository2.findById(senderId).orElse(null);
         User receiver = userRepository2.findById(receiverId).orElse(null);
 
-        Country senderCountry = sender.getCountry();
-        Country receiverCountry = receiver.getCountry();
+        Country senderCountry = sender.getOriginalCountry();
+        Country receiverCountry = receiver.getOriginalCountry();
 
         return sender;
     }
